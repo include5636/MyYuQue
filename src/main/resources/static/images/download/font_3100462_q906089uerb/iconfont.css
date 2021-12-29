@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3100462 */
+  src: url('iconfont.woff2?t=1640776607287') format('woff2'),
+       url('iconfont.woff?t=1640776607287') format('woff'),
+       url('iconfont.ttf?t=1640776607287') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-chakan:before {
+  content: "\e600";
+}
+
+.icon-shanchu:before {
+  content: "\e74b";
+}
+

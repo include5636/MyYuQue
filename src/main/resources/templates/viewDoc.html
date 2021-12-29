@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>查看文档 | 语雀 · 生仪版</title>
+    <link rel="icon" type="image/x-icon" th:href="@{~/images/icon/bird.svg}">
+    <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/main_style.css}">
+    <style>
+        #footer {
+            height: 40px;
+            line-height: 40px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background: #333;
+            color: #fff;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 标题栏 -->
+    <div class="top">
+        <ul class="header">
+            <li class="title">
+                <a class="icon" href="/index">
+                    <img id="icon_hos" alt="Oops! missing" th:src="@{~/images/icon/bird.svg}">
+                </a>
+                <a id="sys" href="/index">
+                    语雀 · 生仪版
+                </a>
+            </li>
+            <li class="user_li">
+                <a class="icon" href="#">
+                    <img alt="Oops! missing" th:src="@{~/images/ran.jpg}">
+                </a>
+                嘉然今天吃215 | 
+                <a href="/login">注销</a>
+            </li>
+        </ul>
+    </div>
+
+     <!-- 导航栏 -->
+     <div class="navi">
+        <ul class="nav_left">
+            <li>
+                <a href="/index">
+                    <span class="glyphicon glyphicon-home"></span>
+                    <span id="nav_text"> 主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/toEditor">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span id="nav_text"> 新建文档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span id="nav_text"> 修改/删除文档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index">
+                    <span class="glyphicon glyphicon-book"></span>
+                    <span id="nav_text"> 归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/index">
+                    <span class="glyphicon glyphicon-tags"></span>
+                    <span id="nav_text"> 按标签查看</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://office.cbeis.zju.edu.cn/">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                    <span id="nav_text"> 生仪学院官网</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <!-- 文章标题 -->
+            <h2 class="sub-header" th:text="${doc.title}"></h2>
+            <h4 class="sub-header" th:text="|发布人: ${doc.author}|"></h4>
+            <hr>
+            <!--文章主体内容-->
+            <div id="doc-content" style="width: 90%">
+                <textarea style="display:none;" placeholder="markdown" th:text="${doc.content}"></textarea>
+            </div>
+            <div id="back">
+                <a href="/doc/viewList">返回</a>
+            </div>
+            <div class="vacancy"></div>
+        </div>
+    </div>
+
+    <div id="footer">
+        Copyright © 2021 樊济瑄 v1.0.0 | Email: 3190103168@zju.edu.cn | 《高级程序设计》课程大作业
+    </div>
+
+    <link rel="stylesheet" th:href="@{~/editormd/css/editormd.preview.css}" />
+    <script th:src="@{~/editormd/js/jquery.min.js}"></script>
+    <script th:src="@{~/editormd/js/editormd.min.js}"></script>
+    <script th:src="@{~/editormd/lib/marked.min.js}"></script>
+    <script th:src="@{~/editormd/lib/prettify.min.js}"></script>
+    <script th:src="@{~/editormd/lib/raphael.min.js}"></script>
+    <script th:src="@{~/editormd/lib/underscore.min.js}"></script>
+    <script th:src="@{~/editormd/lib/sequence-diagram.min.js}"></script>
+    <script th:src="@{~/editormd/lib/flowchart.min.js}"></script>
+    <script th:src="@{~/editormd/lib/jquery.flowchart.min.js}"></script>
+
+    <script type="text/javascript">
+        var testEditor;
+        $(function () {
+            testEditor = editormd.markdownToHTML("doc-content", { //注意：这里是上面DIV的id
+                htmlDecode: "style,script,iframe",
+                emoji: true,
+                taskList: true,
+                tocm: true,
+                tex: true, // 默认不解析
+                flowChart: true, // 默认不解析
+                sequenceDiagram: true, // 默认不解析
+                codeFold: true
+            });
+        });
+    </script>
+</body>
+
+</html>

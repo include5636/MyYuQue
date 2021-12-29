@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="分界线">
+    <title>语雀 · 生仪版</title>
+    <link rel="icon" type="image/x-icon" th:href="@{~/images/icon/bird.svg}">
+    <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{~/css/main_style.css}">
+    <link rel="stylesheet" th:href="@{~/css/iconfont.css}">
+    <!-- <script th:src="@{~/js/layui.js}" charset="utf-8"></script> -->
+    <!-- <script type="text/javascript" th:src="@{~/js/xadmin.js}"></script> -->
+    <!-- <script type="text/javascript" th:src="@{~/jquery/jquery-3.6.0.min.js}"></script> -->
+    <style>
+        .glyphicon {
+            /* color: #5288f5; */
+            font-size: 16px;
+            margin-right: 4px;
+        }
+
+        #footer {
+            height: 40px;
+            line-height: 40px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background: #333;
+            color: #fff;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 标题栏 -->
+    <div class="top">
+        <ul class="header">
+            <li class="title">
+                <a class="icon" href="/index">
+                    <img id="icon_hos" alt="Oops! missing" th:src="@{~/images/icon/bird.svg}">
+                </a>
+                <a id="sys" href="/index">
+                    语雀 · 生仪版
+                </a>
+            </li>
+            <li class="user_li">
+                <a class="icon" href="#">
+                    <img alt="Oops! missing" th:src="@{~/images/ran.jpg}">
+                </a>
+                嘉然今天吃什么 |
+                <a href="/login">注销</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="navi">
+        <ul class="nav_left">
+            <li>
+                <a href="/index">
+                    <span class="glyphicon glyphicon-home"></span>
+                    <span id="nav_text"> 主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/doc/editor">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span id="nav_text"> 新建文档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/doc/viewList">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <span id="nav_text"> 修改/删除文档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <span class="glyphicon glyphicon-tags"></span>
+                    <span id="nav_text"> 按标签查看</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://office.cbeis.zju.edu.cn/">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                    <span id="nav_text"> 生仪学院官网</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="content">
+        <div class="container">
+            <h2 class="sub-header" style="text-align: center">文档列表</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="text-align: center">ID</th>
+                        <th>标题</th>
+                        <th>发布人</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="doc:${page.list}">
+                        <td th:text="${doc.id}"></td>
+                        <td th:text="${doc.title}"></td>
+                        <td th:text="${doc.author}"></td>
+                        <td class="td-manage">
+                            <a title="查看" th:href="@{'/doc/'+${doc.id}}">
+                                <i class="iconfont icon-chakan"></i>
+                            </a>
+                            <a title="修改" th:href="@{'/doc/edit/'+${doc.id}}">
+                                <i class="iconfont icon-xiugai"></i>
+                            </a>
+                            <a title="删除" th:href="@{'/doc/delete/'+${doc.id}}">
+                                <i class="iconfont icon-shanchu"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        Copyright © 2021 樊济瑄 v1.0.0 | Email: 3190103168@zju.edu.cn | 《高级程序设计》课程大作业
+    </div>
+
+</body>
+
+</html>

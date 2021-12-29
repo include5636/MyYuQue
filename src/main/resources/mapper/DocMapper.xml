@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fjx.myYuQue.mapper.DocMapper">
+
+    <resultMap type="com.fjx.myYuQue.dao.Doc" id="DocMap">
+        <result property="id" column="id" jdbcType="INTEGER" />
+        <result property="author" column="author" jdbcType="VARCHAR" />
+        <result property="title" column="title" jdbcType="VARCHAR" />
+        <result property="content" column="content" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--根据id查询单个文章-->
+    <select id="getDocById" resultMap="DocMap">
+        select
+          id, author, title, content
+        from myyuque.doc
+        where id = #{id}
+    </select>
+
+
+    <!--查询所有文章-->
+    <select id="queryDocs" resultMap="DocMap">
+        select
+          id, author, title, content
+          from myyuque.doc
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="author != null and author != ''">
+                and author = #{author}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+        </where>
+    </select>
+
+    <!--添加文章-->
+    <insert id="addDoc" keyProperty="id" useGeneratedKeys="true">
+        insert into myyuque.doc(author, title, content)
+        values (#{author}, #{title}, #{content})
+    </insert>
+
+
+    <!--通过id删除文章-->
+    <delete id="deleteDocById">
+        delete from myyuque.doc where id = #{id}
+    </delete>
+
+</mapper>
