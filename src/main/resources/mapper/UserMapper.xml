@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fjx.myYuQue.mapper.UserMapper">
+
+    <resultMap type="com.fjx.myYuQue.dao.User" id="UserMap">
+        <result property="id" column="id" jdbcType="INTEGER" />
+        <result property="username" column="username" jdbcType="VARCHAR" />
+        <result property="password" column="password" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--根据id查询单个文章-->
+    <select id="getUser" resultMap="UserMap">
+        select * from myyuque.user where username = #{username}
+    </select>
+
+    <!--添加用户-->
+    <insert id="addUser" keyProperty="id" useGeneratedKeys="true">
+        insert into myyuque.user(username, password)
+        values (#{username}, #{password})
+    </insert>
+
+</mapper>

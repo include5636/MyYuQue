@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>查看文档 | 语雀 · 生仪版</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="分界线">
+    <title>Tags | 语雀 · 生仪版</title>
     <link rel="icon" type="image/x-icon" th:href="@{~/images/icon/bird.svg}">
     <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{~/css/main_style.css}">
+    <link rel="stylesheet" th:href="@{~/css/iconfont.css}">
+    <!-- <link rel="stylesheet" href="http//at.alicdn.com/t/font_3100462_6ds5s8kmm1y.css"> -->
+    <!-- <script th:src="@{~/js/layui.js}" charset="utf-8"></script> -->
+    <!-- <script type="text/javascript" th:src="@{~/js/xadmin.js}"></script> -->
+    <!-- <script type="text/javascript" th:src="@{~/jquery/jquery-3.6.0.min.js}"></script> -->
     <style>
+        .glyphicon {
+            /* color: #5288f5; */
+            font-size: 16px;
+            margin-right: 4px;
+        }
+
         #footer {
             height: 40px;
             line-height: 40px;
@@ -40,14 +53,14 @@
                 <a class="icon" href="#">
                     <img alt="Oops! missing" th:src="@{~/images/ran.jpg}">
                 </a>
-                嘉然今天吃什么 | 
+                嘉然今天吃什么 |
                 <a href="/login">注销</a>
             </li>
         </ul>
     </div>
 
-     <!-- 导航栏 -->
-     <div class="navi">
+    <!-- 导航栏 -->
+    <div class="navi">
         <ul class="nav_left">
             <li>
                 <a href="/index">
@@ -56,25 +69,19 @@
                 </a>
             </li>
             <li>
-                <a href="/toEditor">
+                <a href="/doc/editor">
                     <span class="glyphicon glyphicon-plus"></span>
                     <span id="nav_text"> 新建文档</span>
                 </a>
             </li>
             <li>
-                <a href="/index">
+                <a href="/doc/viewList">
                     <span class="glyphicon glyphicon-pencil"></span>
-                    <span id="nav_text"> 修改/删除文档</span>
+                    <span id="nav_text"> 查看/修改/删除</span>
                 </a>
             </li>
             <li>
-                <a href="/index">
-                    <span class="glyphicon glyphicon-book"></span>
-                    <span id="nav_text"> 归档</span>
-                </a>
-            </li>
-            <li>
-                <a href="/index">
+                <a href="/tags">
                     <span class="glyphicon glyphicon-tags"></span>
                     <span id="nav_text"> 按标签查看</span>
                 </a>
@@ -88,21 +95,32 @@
         </ul>
     </div>
 
+    <!-- 主体内容 -->
     <div class="content">
         <div class="container">
-            <!-- 文章标题 -->
-            <h2 class="sub-header" th:text="${doc.title}"></h2>
-            <br>
-            <h4 class="sub-header"  th:text="|发布人: ${doc.author}  标签: ${doc.tag}|"></h4>
+            <h2 class="sub-header" style="text-align: center">Tags</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="text-align: center">标签</th>
+                        <th>查看详情</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="doc:${page.list}">
+                        <td th:text="${doc.tag}"></td>
+                        <td class="td-manage">
+                            <a title="查看" th:href="@{'/tag/'+${doc.tag}}">
+                                <i class="iconfont icon-chakan"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <hr>
-            <!--文章主体内容-->
-            <div id="doc-content" style="width: 90%">
-                <textarea style="display:none;" placeholder="markdown" th:text="${doc.content}"></textarea>
+            <div>
+
             </div>
-            <div id="back">
-                <a href="/doc/viewList">返回</a>
-            </div>
-            <div class="vacancy"></div>
         </div>
     </div>
 
@@ -110,32 +128,6 @@
         Copyright © 2021 樊济瑄 v1.0.0 | Email: 3190103168@zju.edu.cn | 《高级程序设计》课程大作业
     </div>
 
-    <link rel="stylesheet" th:href="@{~/editormd/css/editormd.preview.css}" />
-    <script th:src="@{~/editormd/js/jquery.min.js}"></script>
-    <script th:src="@{~/editormd/js/editormd.min.js}"></script>
-    <script th:src="@{~/editormd/lib/marked.min.js}"></script>
-    <script th:src="@{~/editormd/lib/prettify.min.js}"></script>
-    <script th:src="@{~/editormd/lib/raphael.min.js}"></script>
-    <script th:src="@{~/editormd/lib/underscore.min.js}"></script>
-    <script th:src="@{~/editormd/lib/sequence-diagram.min.js}"></script>
-    <script th:src="@{~/editormd/lib/flowchart.min.js}"></script>
-    <script th:src="@{~/editormd/lib/jquery.flowchart.min.js}"></script>
-
-    <script type="text/javascript">
-        var testEditor;
-        $(function () {
-            testEditor = editormd.markdownToHTML("doc-content", { //注意：这里是上面DIV的id
-                htmlDecode: "style,script,iframe",
-                emoji: true,
-                taskList: true,
-                tocm: true,
-                tex: true, // 默认不解析
-                flowChart: true, // 默认不解析
-                sequenceDiagram: true, // 默认不解析
-                codeFold: true
-            });
-        });
-    </script>
 </body>
 
 </html>

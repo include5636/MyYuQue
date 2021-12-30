@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="分界线">
-    <title>编辑文档 | 语雀 · 生仪版</title>
+    <title>修改文档 | 语雀 · 生仪版</title>
     <link rel="icon" type="image/x-icon" th:href="@{~/images/icon/bird.svg}">
     <link rel="stylesheet" th:href="@{~/editormd/css/style.css}" />
     <link rel="stylesheet" th:href="@{~/editormd/css/editormd.css}" />
@@ -15,7 +15,6 @@
 </head>
 
 <body>
-
     <!-- 标题栏 -->
     <div class="top">
         <ul class="header">
@@ -39,15 +38,21 @@
 
     <div class="doc_content">
         <div class="container">
+            <h2 class="sub-header" th:text="${doc.title}"></h2>
+            <h4 class="sub-header" th:text="|发布人: ${doc.author}|"></h4>
             <div id="layout">
                 <form name="mdEditorForm">
                     <header>
-                        标题: <input type="text" name="title">
-                        发布人: <input type="text" name="author">
-                        标签: <input type="text" name="tag">
+                        <input type="text" name="id" th:value="${doc.id}" hidden>
+                        标题: <input type="text" name="title" th:value="${doc.title}">
+                        发布人: <input type="text" name="author" th:value="${doc.author}">
+                        标签: <input type="text" name="tag" th:value="${doc.tag}">
                     </header>
                     <div id="doc-editormd">
-                        <textarea name="content" style="display:none;"></textarea>
+                        <!-- <input type="text" name="id" th:text="${doc.id}" >
+                        <input type="text" name="title" th:text="${doc.title}">
+                        <input type="text" name="author" th:text="${doc.author}"> -->
+                        <textarea name="content" style="display:none;" placeholder="markdown" th:text="${doc.content}"></textarea>
                     </div>
                 </form>
             </div>
@@ -78,24 +83,24 @@
                         "code-block", "table", "datetime", "emoji", "html-entities",
                         "pagebreak", "|",
                         "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|",
-                        "help", "info", "releaseIcon", "index"
+                        "help", "info", "releaseIcon", "back"
                     ]
                 },
                 /*自定义功能按钮，下面我自定义了2个，一个是发布，一个是返回首页*/
                 toolbarIconTexts: {
-                    releaseIcon: "<span bgcolor=\"gray\" >发布</span>",
-                    index : "<span bgcolor=\"red\">返回首页</span>",
+                    releaseIcon: "<span bgcolor=\"gray\" >保存</span>",
+                    back : "<span bgcolor=\"red\">返回</span>",
                 },
                 /*给自定义按钮指定回调函数*/
                 toolbarHandlers: {
                     releaseIcon: function (cm, icon, cursor, selection) {
                         //表单提交
                         mdEditorForm.method = "post";
-                        mdEditorForm.action = "/doc/addDoc"; //提交至服务器的路径
+                        mdEditorForm.action = "/doc/updateDoc"; //提交至服务器的路径
                         mdEditorForm.submit();
                     },
-                    index : function(){
-                        window.location.href = '/index';
+                    back : function(){
+                        window.location.href = '/doc/viewList';
                     },
                 }
             });

@@ -58,10 +58,10 @@ public class DocController {
         return "redirect:/doc/viewList";
     }
 
-    /** 修改文章 */
-    @GetMapping("/edit/{id}")
-    public String editDoc(@PathVariable("id") int id) {
-        docService.deleteDocById(id);
+    @RequestMapping("/updateDoc")
+    public String updateDoc(Doc doc) {
+        System.out.println(doc);
+        docService.updateDoc(doc);
         return "redirect:/doc/viewList";
     }
 }

@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{~/css/main_style.css}">
     <link rel="stylesheet" th:href="@{~/css/iconfont.css}">
+    <!-- <link rel="stylesheet" href="http//at.alicdn.com/t/font_3100462_6ds5s8kmm1y.css"> -->
     <!-- <script th:src="@{~/js/layui.js}" charset="utf-8"></script> -->
     <!-- <script type="text/javascript" th:src="@{~/js/xadmin.js}"></script> -->
     <!-- <script type="text/javascript" th:src="@{~/jquery/jquery-3.6.0.min.js}"></script> -->
@@ -76,7 +77,7 @@
             <li>
                 <a href="/doc/viewList">
                     <span class="glyphicon glyphicon-pencil"></span>
-                    <span id="nav_text"> 修改/删除文档</span>
+                    <span id="nav_text"> 查看/修改/删除</span>
                 </a>
             </li>
             <li>
@@ -104,6 +105,7 @@
                         <th style="text-align: center">ID</th>
                         <th>标题</th>
                         <th>发布人</th>
+                        <th>标签</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -112,11 +114,13 @@
                         <td th:text="${doc.id}"></td>
                         <td th:text="${doc.title}"></td>
                         <td th:text="${doc.author}"></td>
+                        <td th:text="${doc.tag}"></td>
                         <td class="td-manage">
                             <a title="查看" th:href="@{'/doc/'+${doc.id}}">
                                 <i class="iconfont icon-chakan"></i>
                             </a>
-                            <a title="修改" th:href="@{'/doc/edit/'+${doc.id}}">
+                            <!-- <a title="修改" th:href="@{'/edit/1'}"> -->
+                            <a title="修改" th:href="@{'/edit/'+${doc.id}}">
                                 <i class="iconfont icon-xiugai"></i>
                             </a>
                             <a title="删除" th:href="@{'/doc/delete/'+${doc.id}}">

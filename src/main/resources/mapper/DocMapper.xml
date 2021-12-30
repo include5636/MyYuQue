@@ -6,22 +6,31 @@
         <result property="id" column="id" jdbcType="INTEGER" />
         <result property="author" column="author" jdbcType="VARCHAR" />
         <result property="title" column="title" jdbcType="VARCHAR" />
+        <result property="tag" column="tag" jdbcType="VARCHAR" />
         <result property="content" column="content" jdbcType="VARCHAR" />
     </resultMap>
 
     <!--根据id查询单个文章-->
     <select id="getDocById" resultMap="DocMap">
         select
-          id, author, title, content
+          id, author, title, tag, content
         from myyuque.doc
         where id = #{id}
+    </select>
+
+    <!--根据tag查询文章-->
+    <select id="getDocByTag" resultMap="DocMap">
+        select
+          id, author, title, tag, content
+        from myyuque.doc
+        where tag = #{tag}
     </select>
 
 
     <!--查询所有文章-->
     <select id="queryDocs" resultMap="DocMap">
         select
-          id, author, title, content
+          id, author, title, tag, content
           from myyuque.doc
         <where>
             <if test="id != null">
@@ -33,18 +42,32 @@
             <if test="title != null and title != ''">
                 and title = #{title}
             </if>
+            <if test="tag != null and tag != ''">
+                and tag = #{tag}
+            </if>
             <if test="content != null and content != ''">
                 and content = #{content}
             </if>
         </where>
     </select>
 
+    <!--查询所有tag-->
+    <select id="queryTags" resultMap="DocMap">
+        select distinct tag from myyuque.doc
+    </select>
+
     <!--添加文章-->
     <insert id="addDoc" keyProperty="id" useGeneratedKeys="true">
-        insert into myyuque.doc(author, title, content)
-        values (#{author}, #{title}, #{content})
+        insert into myyuque.doc(author, title, tag, content)
+        values (#{author}, #{title}, #{tag}, #{content})
     </insert>
 
+    <!--更新文章-->
+    <update id="updateDoc">
+        update myyuque.doc 
+        set title = #{title}, author = #{author}, tag = #{tag}, content = #{content}
+        where id = #{id}
+    </update>
 
     <!--通过id删除文章-->
     <delete id="deleteDocById">

@@ -13,7 +13,6 @@ public class Doc implements Serializable{
     private int id;
     private String author;
     private String title;
+    private String tag;
     private String content;
-
-
 }

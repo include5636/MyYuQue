@@ -8,6 +8,7 @@
     <meta name="author" content="分界线">
     <title>登录 | 语雀 · 生仪版</title>
     <link rel="icon" type="image/x-icon" th:href="@{~/images/icon/bird.svg}">
+    <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{~/css/login_style.css}">
     <style>
         #footer {
@@ -29,7 +30,7 @@
 
     <div class="box">
         <h2>语雀 · 生仪版</h2>
-        <form action="/loginCheck" class="admin" method="post">
+        <form action="/loginCheck"  class="admin" method="post">
             <div class="inputBox">
                 <input type="text" name="username" autofocus required>
                 <label>用户名</label>
@@ -42,10 +43,21 @@
                 <input type="submit" value="登录">
             </div>
             <div class="regis">
+                <h3 style="color: crimson;">登录失败😢 请重试</h3>
+                <br>
                 没有账号？
                 <a href="/register">注册</a>
             </div>
         </form>
+
+        <!-- <div class="alert">
+            <h3 style="text-align: center; color: white;">该用户不存在🤪</h3>
+        </div> -->
+
+       
+        <!-- <div class="alert">
+            <h3 style="text-align: center; color: white;">密码错误🤪</h3>
+        </div> -->
         
     </div>
 
