@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -29,7 +29,7 @@
 
     <div class="box">
         <h2>语雀 · 生仪版</h2>
-        <form action="/loginCheck" class="admin" method="post">
+        <form th:action="@{/loginCheck}" class="admin" method="post">
             <div class="inputBox">
                 <input type="text" name="username" autofocus required>
                 <label>用户名</label>
@@ -42,6 +42,9 @@
                 <input type="submit" value="登录">
             </div>
             <div class="regis">
+                <div th:if="${msg != null}">
+                    <h3 th:text="${msg}" style="color: rgb(216, 86, 86);"></h3>
+                </div>
                 没有账号？
                 <a href="/register">注册</a>
             </div>

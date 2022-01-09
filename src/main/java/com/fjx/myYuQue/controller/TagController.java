@@ -34,6 +34,7 @@ public class TagController {
 
     @GetMapping("/{tag}")
     public String viewDocList(Model model, @RequestParam(value = "pn", defaultValue = "1") int pn, @RequestParam(value = "size", defaultValue = "10") int size, @PathVariable("tag") String tag) {
+        System.out.println("!!@@@@");
         PageHelper.startPage(pn, size);
         List<Doc> docs = docService.getDocByTag(tag);
         PageInfo<Doc> page = new PageInfo<>(docs);

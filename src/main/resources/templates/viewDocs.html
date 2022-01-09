@@ -10,11 +10,7 @@
     <link rel="icon" type="image/x-icon" th:href="@{~/images/icon/bird.svg}">
     <link rel="stylesheet" th:href="@{~/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{~/css/main_style.css}">
-    <link rel="stylesheet" th:href="@{~/css/iconfont.css}">
-    <!-- <link rel="stylesheet" href="http//at.alicdn.com/t/font_3100462_6ds5s8kmm1y.css"> -->
-    <!-- <script th:src="@{~/js/layui.js}" charset="utf-8"></script> -->
-    <!-- <script type="text/javascript" th:src="@{~/js/xadmin.js}"></script> -->
-    <!-- <script type="text/javascript" th:src="@{~/jquery/jquery-3.6.0.min.js}"></script> -->
+    <link rel="stylesheet" th:href="@{~/css/iconfont.css}"> 
     <style>
         .glyphicon {
             /* color: #5288f5; */
@@ -102,16 +98,14 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th style="text-align: center">ID</th>
                         <th>标题</th>
                         <th>发布人</th>
                         <th>标签</th>
-                        <th>操作</th>
+                        <th>查看 修改 删除</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="doc:${page.list}">
-                        <td th:text="${doc.id}"></td>
                         <td th:text="${doc.title}"></td>
                         <td th:text="${doc.author}"></td>
                         <td th:text="${doc.tag}"></td>
@@ -119,7 +113,6 @@
                             <a title="查看" th:href="@{'/doc/'+${doc.id}}">
                                 <i class="iconfont icon-chakan"></i>
                             </a>
-                            <!-- <a title="修改" th:href="@{'/edit/1'}"> -->
                             <a title="修改" th:href="@{'/edit/'+${doc.id}}">
                                 <i class="iconfont icon-xiugai"></i>
                             </a>

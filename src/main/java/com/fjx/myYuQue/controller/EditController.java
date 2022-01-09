@@ -24,7 +24,6 @@ public class EditController {
     public String editDoc(@PathVariable("id") int id, Model model) {
         Doc doc = docService.getDocById(id);
         model.addAttribute("doc", doc);
-        // System.out.println(doc);
         return "changeDoc";
     }
 

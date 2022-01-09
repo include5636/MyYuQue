@@ -13,6 +13,8 @@ public class User implements Serializable{
     private int id;
     private String username;
     private String password;
+    private String perms;
+    private String role;
 
     public User(String username, String password) {
         this.username = username;
